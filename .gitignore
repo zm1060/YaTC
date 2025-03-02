@@ -1,0 +1,8 @@
+YaTC_datasets/
+output_dir/
+YaTC_pretrained_model/
+*.zip
+*.pth
+*.pyc
+*.png
+*.pdf
