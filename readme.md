@@ -37,14 +37,15 @@ Datasets [Link](https://drive.google.com/file/d/1znKQpZ704Bh4EkaHUBJwztYgflFXPnH
 - CICIoT2022_MFR: 10
 
 ## Dependency
+```shell
+conda create -n yatc python=3.9
+conda activate yatc
+conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
+pip installtensorboard==2.19.0 timm==1.0.15 scikit-image==0.18.1 numpy==1.24.4 scikit-learn==0.24.2
 
+python -c "import torch; print(torch.__version__)"
 ```
-python=3.8
-timm=0.3.2
-torch=1.9.0
-numpy=1.19.5
-scikit-learn=0.24.2
-```
+
 
 ## Code Information
 
@@ -63,7 +64,7 @@ python pre-train.py --batch_size 128 --blr 1e-3 --steps 150000 --mask_ratio 0.9
 ## Fine-tuning
 
 ```
-python fine-tune.py --blr 2e-3 --epochs 200 --data_path ./data/ISCXVPN2016_MFR --nb_classes 7
+python fine-tune.py --blr 2e-3 --epochs 200 --data_path ./YaTC_datasets/ISCXVPN2016_MFR --nb_classes 7
 ```
 
 ## Contact-Info
