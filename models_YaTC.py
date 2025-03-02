@@ -71,7 +71,7 @@ class TrafficTransformer(timm.models.vision_transformer.VisionTransformer):
         return x
 
     def forward_features(self, x):
-        B, C, H, W = x.shape
+        B, C, _, _ = x.shape
         x = x.reshape(B, C, 5, -1)
         for i in range(5):
             packet_x = x[:, :, i, :]
@@ -87,9 +87,9 @@ class TrafficTransformer(timm.models.vision_transformer.VisionTransformer):
             x = blk(x)
 
         x = x.reshape(B, 5, 21, -1)[:, :, 0, :]
-        x = x.mean(dim=1)
-
+        # x = x.mean(dim=1)
         outcome = self.fc_norm(x)
+        
         return outcome
 
 
@@ -113,7 +113,7 @@ class MaskedAutoencoder(nn.Module):
                                       requires_grad=False)  # fixed sin-cos embedding
 
         self.blocks = nn.ModuleList([
-            Block(embed_dim, num_heads, mlp_ratio, qkv_bias=True, qk_scale=None, norm_layer=norm_layer)
+            Block(embed_dim, num_heads, mlp_ratio, qkv_bias=True, norm_layer=norm_layer)
             for i in range(depth)])
         self.norm = norm_layer(embed_dim)
         # --------------------------------------------------------------------------
@@ -128,7 +128,7 @@ class MaskedAutoencoder(nn.Module):
                                               requires_grad=False)  # fixed sin-cos embedding
 
         self.decoder_blocks = nn.ModuleList([
-            Block(decoder_embed_dim, decoder_num_heads, mlp_ratio, qkv_bias=True, qk_scale=None, norm_layer=norm_layer)
+            Block(decoder_embed_dim, decoder_num_heads, mlp_ratio, qkv_bias=True, norm_layer=norm_layer)
             for i in range(decoder_depth)])
 
         self.decoder_norm = norm_layer(decoder_embed_dim)
