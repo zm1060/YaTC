@@ -97,7 +97,7 @@ def get_args_parser():
                         help='Probability of switching to cutmix when both mixup and cutmix enabled')
     parser.add_argument('--mixup_mode', type=str, default='batch',
                         help='How to apply mixup/cutmix params. Per "batch", "pair", or "elem"')
-    parser.add_argument('--finetune', default='./output_dir/pretrained-model.pth',
+    parser.add_argument('--finetune', default='./output_dir/YaTC_pretrained-model.pth',
                         help='finetune from checkpoint')
     parser.add_argument('--data_path', default='./data/ISCXVPN2016_MFR', type=str,
                         help='dataset path')
